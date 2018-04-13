@@ -3,12 +3,12 @@ package Constraint;
 import Constraint.Constraints.IConstraint;
 import GxEngine3D.Model.ForcePoint3D;
 
-public class ConstraintPair {
-    ForcePoint3D[] points;
+public class ConstraintPair<T> {
+    T affected;//what is affected by this constraint
     IConstraint constraint;
 
-    public ConstraintPair(ForcePoint3D[] p, IConstraint con) {
-        points = p;
+    public ConstraintPair(T af, IConstraint con) {
+        affected = af;
         constraint = con;
     }
 
@@ -16,7 +16,7 @@ public class ConstraintPair {
         return constraint;
     }
 
-    public ForcePoint3D[] getPoints() {
-        return points;
+    public T getPoints() {
+        return affected;
     }
 }

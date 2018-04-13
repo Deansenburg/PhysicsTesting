@@ -1,5 +1,6 @@
 package Constraint.Constraints;
 
+import Force3DInterface.ForceVector;
 import Force3DInterface.ForceVector3D;
 import GxEngine3D.CalculationHelper.DistanceCalc;
 import GxEngine3D.CalculationHelper.VectorCalc;
@@ -11,7 +12,8 @@ import GxEngine3D.Model.Vector;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-public class VolumeConstraint extends BaseConstraint{
+//fundamentally this approach doesnt work as intented with lots of strange occurrences
+public class VolumeConstraint extends BasePointConstraint{
 
     ArrayList<RefPoint3D[]> triangles;
     double minVol, maxVol, lastVol, avgDistToMid;
@@ -44,23 +46,25 @@ public class VolumeConstraint extends BaseConstraint{
         double total = 0, num = 0;
         for (RefPoint3D p:polys.get(0).getBelongsTo().getPoints())
         {
-            total += DistanceCalc.getDistance(cen, p.toArray());
+            double dist = DistanceCalc.getDistance(cen, p.toArray());
+            total += dist;
             num++;
         }
         avgDistToMid = total / num;
     }
 
     //note that this method is highly dependant upon consistent ordering of vertices
-    //when creating shapes from edges, the vertices must be in a specific order throughout the entire shape
+    //note that the specific order doesnt matter, so long that its consistent
     private double getVolume(ArrayList<RefPoint3D[]> triangles)
     {
         double total = 0;
         for (RefPoint3D[] p:triangles)
         {
-            double temp = VectorCalc.dot_v3v3(p[0].toArray(), VectorCalc.cross(p[1].toArray(), p[2].toArray()))/6;
+            double temp = VectorCalc.dot_v3v3(p[2].toArray(), VectorCalc.cross(p[0].toArray(), p[1].toArray()));
             total+= temp;
-//            System.out.println(temp);
         }
+        total = Math.abs(total / 6);
+//        System.out.println(total);
         return total;
     }
 
@@ -90,6 +94,7 @@ public class VolumeConstraint extends BaseConstraint{
 
     @Override
     public void applySolutions(ForcePoint3D[] points) {
+//        System.out.println("Volume Constraint");
         prevPoints = new double[points.length][];
 
         double[] midPoint = findCentre(points);
@@ -113,15 +118,16 @@ public class VolumeConstraint extends BaseConstraint{
             v = VectorCalc.div_v3_fl(v, VectorCalc.len_v3(v));//normalised
             v = VectorCalc.mul_v3_fl(v, dist);
             v = VectorCalc.add_v3v3(p, v);
-            points[i].addForce(points[i].predictVectorRequired(v));
+            ForceVector3D vec = points[i].predictVectorRequired(v);
+            points[i].addForce(vec);
             prevPoints[i] = v;
         }
-        prevNodes = points.clone();
+        prevNodes = points;
     }
 
     @Override
     public void reapplyPreviousSolution() {
-        for (int i=0;i<prevNodes.length-1;i++)
+        for (int i=0;i<prevNodes.length;i++)
         {
             prevNodes[i].addForce(prevNodes[i].predictVectorRequired(prevPoints[i]));
         }

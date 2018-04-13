@@ -8,7 +8,7 @@ import java.util.ArrayList;
 
 public class ImpulseSolver {
     ArrayList<ConstraintPair> constraints = new ArrayList<>();
-    int maxIter = 10;
+    int maxIter = 1;
 
     CoordinateCalc3D calc = new CoordinateCalc3D();
 
@@ -25,17 +25,10 @@ public class ImpulseSolver {
             isViolating  = false;
             for (ConstraintPair c:constraints) {
                 IConstraint constraint = c.getConstraint();
-                ForcePoint3D[] points = c.getPoints();
-                if (constraint.isViolating(points))
+                if (constraint.isViolating(c.getPoints()))
                 {
                     isViolating = true;
-                    constraint.applySolutions(points);
-                    //update coords, this may need to happen twice to stop momentum after reaching location
-                    for (ForcePoint3D p:c.getPoints())
-                    {
-                        p.updateCoordinates(calc);
-                    }
-                    constraint.reapplyPreviousSolution();
+                    constraint.applySolutions(c.getPoints());
                 }
             }
             if (curIter > maxIter)

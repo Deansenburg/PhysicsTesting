@@ -1,7 +1,7 @@
 package Programs;
 
 import GxEngine3D.Camera.Camera;
-import GxEngine3D.Controller.ForceController;
+import GxEngine3D.Controller.Force.ForceController;
 import GxEngine3D.Controller.GXController;
 import GxEngine3D.Controller.ITickListener;
 import GxEngine3D.Controller.Scene;
@@ -9,10 +9,8 @@ import GxEngine3D.Lighting.Light;
 import GxEngine3D.View.Screen;
 import GxEngine3D.View.ViewHandler;
 import MenuController.LookMenuController;
-import ObjectFactory.*;
 import Shapes.*;
 import Shapes.Shape2D.Line;
-import Shapes.Shape2D.Sqaure;
 
 import javax.swing.*;
 import java.awt.*;
@@ -33,18 +31,37 @@ public class PhysicsTest {
 
 		final Scene scene = new Scene(c, ls, 0);
 
-		Cube cube = new Cube(1, 1, 100, 5, 5, 5, Color.white, vH);
-		cube.roll(Math.toRadians(20));
+		Cube cube = new Cube(1, 1, 0, 5, 5, 5, Color.decode("#FF00FF"), vH);
 		scene.addObject(cube);
 		fCon.add(cube);
+
+		Pyramid pyr = new Pyramid(2, 2, 6, 1, 1, 1, Color.decode("#00FF00"), vH);
+		scene.addObject(pyr);
+		fCon.add(pyr);
+
+//		cube = new Cube(1.5, 1.5, 6, 4, 4, 4, Color.decode("#0000FF"), vH);
+//		scene.addObject(cube);
+//		fCon.add(cube);
+//
+		cube = new Cube(2, 2, 11, 3, 3, 3, Color.decode("#00FFFF"), vH);
+		scene.addObject(cube);
+		fCon.add(cube);
+//
+//		cube = new Cube(2.5, 2.5, 16, 2, 2, 2, Color.decode("#00FF00"), vH);
+//		scene.addObject(cube);
+//		fCon.add(cube);
+//
+//		cube = new Cube(3, 3, 20, 1, 1, 1, Color.decode("#FFFF00"), vH);
+//		scene.addObject(cube);
+//		fCon.add(cube);
 
 		Cube floor = new Cube(-25, -25, 0, 50, 50, 0.1, Color.red,  vH);
 		scene.addObject(floor);
 
-		Pyramid pyr = new Pyramid(10, 10, 100, 5, 5, 5, Color.white, vH);
-		pyr.roll(Math.toRadians(10));
-		scene.addObject(pyr);
-		fCon.add(pyr);
+//		Pyramid pyr = new Pyramid(10, 10, 100, 5, 5, 5, Color.white, vH);
+//		pyr.roll(Math.toRadians(60));
+//		scene.addObject(pyr);
+//		fCon.add(pyr);
 
 		Screen panel = new Screen(scene);
 		panel.setPreferredSize(new Dimension(500, 500));

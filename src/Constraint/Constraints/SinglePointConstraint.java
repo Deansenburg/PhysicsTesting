@@ -2,7 +2,7 @@ package Constraint.Constraints;
 
 import GxEngine3D.Model.ForcePoint3D;
 
-public abstract class SinglePointConstraint extends BaseConstraint {
+public abstract class SinglePointConstraint extends BasePointConstraint {
     protected abstract boolean isViolating(ForcePoint3D p);
     protected abstract void applySolution(ForcePoint3D p);
 

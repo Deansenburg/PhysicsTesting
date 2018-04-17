@@ -1,0 +1,3 @@
+[submodule "GFXEngine"]
+	path = GFXEngine
+	url = https://github.com/Deansenburg/GFXEngine

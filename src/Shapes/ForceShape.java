@@ -1,13 +1,11 @@
 package Shapes;
 
-import Constraint.ConstraintPair;
-import Constraint.Constraints.RigidConstraint;
-import Constraint.Constraints.VolumeConstraint;
-import Constraint.ImpulseSolver;
-import Force3DInterface.Force.GenericRepel3D;
-import Force3DInterface.ForcePair;
+import Physics.Constraint.ConstraintPair;
+import Physics.Constraint.Constraints.RigidConstraint;
+import Physics.Constraint.Constraints.VolumeConstraint;
+import Physics.Force3DInterface.ForcePair;
 import GxEngine3D.CalculationHelper.DistanceCalc;
-import GxEngine3D.Model.ForcePoint3D;
+import Physics.ForcePoint3D;
 import GxEngine3D.Model.RefPoint3D;
 import GxEngine3D.View.ViewHandler;
 

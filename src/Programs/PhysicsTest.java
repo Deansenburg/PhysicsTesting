@@ -1,7 +1,6 @@
 package Programs;
 
 import GxEngine3D.Camera.Camera;
-import GxEngine3D.Controller.Force.ForceController;
 import GxEngine3D.Controller.GXController;
 import GxEngine3D.Controller.ITickListener;
 import GxEngine3D.Controller.Scene;
@@ -9,6 +8,7 @@ import GxEngine3D.Lighting.Light;
 import GxEngine3D.View.Screen;
 import GxEngine3D.View.ViewHandler;
 import MenuController.LookMenuController;
+import Physics.Controller.ForceController;
 import Shapes.*;
 import Shapes.Shape2D.Line;
 
@@ -33,11 +33,11 @@ public class PhysicsTest {
 
 		Cube cube = new Cube(1, 1, 0, 5, 5, 5, Color.decode("#FF00FF"), vH);
 		scene.addObject(cube);
-		fCon.add(cube);
+//		fCon.add(cube);
 
 		Pyramid pyr = new Pyramid(2, 2, 6, 1, 1, 1, Color.decode("#00FF00"), vH);
 		scene.addObject(pyr);
-		fCon.add(pyr);
+//		fCon.add(pyr);
 
 //		cube = new Cube(1.5, 1.5, 6, 4, 4, 4, Color.decode("#0000FF"), vH);
 //		scene.addObject(cube);
@@ -45,7 +45,7 @@ public class PhysicsTest {
 //
 		cube = new Cube(2, 2, 11, 3, 3, 3, Color.decode("#00FFFF"), vH);
 		scene.addObject(cube);
-		fCon.add(cube);
+//		fCon.add(cube);
 //
 //		cube = new Cube(2.5, 2.5, 16, 2, 2, 2, Color.decode("#00FF00"), vH);
 //		scene.addObject(cube);
